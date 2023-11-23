@@ -32,6 +32,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
           "volumes?maxResults=40&Filtering=free-ebooks&Sorting=relevance: flutter&q=subject:flutter platform&orderBy=newest",
     );
     List<BookEntities> books = parseJsonToBookEntitiesMethod(data);
+    saveData(books: books, type: kNewestBox);
     return books;
   }
 }
