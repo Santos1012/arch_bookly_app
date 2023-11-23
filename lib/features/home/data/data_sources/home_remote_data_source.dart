@@ -1,6 +1,9 @@
+import 'package:bookly_app/constants.dart';
 import 'package:bookly_app/core/utils/api_service.dart';
-import 'package:bookly_app/features/home/data/models/book_model/book_model.dart';
+import 'package:bookly_app/core/utils/functions/save_data.dart';
 import 'package:bookly_app/features/home/domain/entities/book_entities.dart';
+
+import '../../../../core/utils/functions/parse_data.dart';
 
 abstract class HomeRemoteDataSource {
   Future<List<BookEntities>> fetchFeatureBooks();
@@ -18,6 +21,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
           "volumes?maxResults=40&Filtering=free-ebooks&Sorting=relevance: flutter&q=subject:programming&orderBy=newest",
     );
     List<BookEntities> books = parseJsonToBookEntitiesMethod(data);
+    saveData(books: books, type: kFeatureBox);
     return books;
   }
 
@@ -28,14 +32,6 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
           "volumes?maxResults=40&Filtering=free-ebooks&Sorting=relevance: flutter&q=subject:flutter platform&orderBy=newest",
     );
     List<BookEntities> books = parseJsonToBookEntitiesMethod(data);
-    return books;
-  }
-
-  List<BookEntities> parseJsonToBookEntitiesMethod(Map<String, dynamic> data) {
-    List<BookEntities> books = [];
-    for (var items in data["items"]) {
-      books.add(BookModel.fromJson(items));
-    }
     return books;
   }
 }
