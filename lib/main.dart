@@ -1,9 +1,19 @@
+import 'dart:io';
+
 import 'package:bookly_app/constants.dart';
 import 'package:bookly_app/core/utils/app_router.dart';
+import 'package:bookly_app/features/home/domain/entities/book_entities.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 
-void main() {
+void main() async {
+  var path = Directory.current.path;
+  Hive
+    ..init(path)
+    ..registerAdapter(BookEntitiesAdapter());
+
+  var box = await Hive.openBox(kFeatureBox);
   runApp(const BooklyApp());
 }
 
