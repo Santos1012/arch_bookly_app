@@ -1,3 +1,6 @@
+import 'package:bookly_app/constants.dart';
+import 'package:hive/hive.dart';
+
 import '../../domain/entities/book_entities.dart';
 
 abstract class HomeLocalDataSource {
@@ -8,7 +11,8 @@ abstract class HomeLocalDataSource {
 class HomeLocalDataSourceImpl extends HomeLocalDataSource {
   @override
   List<BookEntities> fetchFeatureBooks() {
-    throw UnimplementedError();
+    var box = Hive.box<BookEntities>(kFeatureBox);
+    return box.values.toList();
   }
 
   @override

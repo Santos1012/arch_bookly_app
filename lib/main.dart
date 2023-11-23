@@ -12,7 +12,7 @@ void main() async {
   await Hive.initFlutter(path);
   Hive.registerAdapter(BookEntitiesAdapter());
   // ignore: unused_local_variable
-  var box = await Hive.openBox(kFeatureBox);
+  var box = await Hive.openBox<BookEntities>(kFeatureBox);
 
   runApp(const BooklyApp());
 }
